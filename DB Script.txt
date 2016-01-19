@@ -1,0 +1,50 @@
+CREATE DATABASE raffle;
+CREATE TABLE UserLoginData(
+	user_id INT(4) NOT NULL,
+	user_name VARCHAR(60) NOT NULL,
+	user_type VARCHAR(5) NOT NULL,
+	user_password VARCHAR(300) NOT NULL,
+	CONSTRAINT PRIMARY KEY (user_id)
+)ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+INSERT INTO UserLoginData(user_id, user_name, user_type, user_password) VALUES(1, 'Admin', 'c', '5d41402abc4b2a76b9719d911017c592');
+INSERT INTO UserLoginData(user_id, user_name, user_type, user_password) VALUES(2, 'User1', 'c', '203ad5ffa1d7c650ad681fdff3965cd2');
+
+
+==========USER DATA=========
+User name = Admin
+Password  = hello
+Encripted version of Password = 5d41402abc4b2a76b9719d911017c592
+
+
+User name = User1
+Password  = hello1
+Encripted version of Password = 203ad5ffa1d7c650ad681fdff3965cd2
+
+
+CREATE TABLE RAFFLE (
+raffle_id INT(10) NOT NULL auto_increment,
+raffle_no INT(8),
+start_time VARCHAR(20),
+end_time VARCHAR(20),
+max_price DECIMAL(10,2),
+min_price DECIMAL(10,2),
+campaign_id INT(10),
+PRIMARY KEY(raffle_id),
+CONSTRAINT FOREIGN KEY(campaign_id) REFERENCES RAFFLECAMPAIGN(campaign_id)
+);
+INSERT INTO RAFFLE(raffle_no, start_time, end_time, max_price, min_price, campaign_id) VALUES (1234432, "2016-1-1 12.00AM", "2016-1-10 12.00AM", 90.99, 80.99, 1);
+
+
+
+CREATE TABLE RAFFLECAMPAIGN (
+campaign_id INT(10) NOT NULL auto_increment,
+campaign_name VARCHAR(500),
+organizer_name VARCHAR(500),
+contact_email VARCHAR(100),
+raffle_count INT(5),
+PRIMARY KEY(campaign_id)
+);
+
+INSERT INTO RAFFLECAMPAIGN(campaign_name, organizer_name, contact_email,raffle_count) VALUES("Example campign name", "Example org name", "Example@gmail.com", 25);
+INSERT INTO RAFFLECAMPAIGN(campaign_name, organizer_name, contact_email,raffle_count) VALUES("Example campign name 1", "Example org name 1", "Example@gmail.lk", 5);

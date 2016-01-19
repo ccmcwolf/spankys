@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="Raffle" table="RAFFLE">
+		<meta attribute="class-description">This class contains the Raffle details</meta>
+		<id name="raffle_id" type="int" column="raffle_id">
+			<generator class="native" />
+		</id>
+		<set name="raffle_no" cascade="all">
+			<key column="campaign_id" />
+			<one-to-many class="RaffleCampaign" />
+		</set>
+		<property name="raffle_no" column="raffle_no" type="string" />
+		<property name="start_time" column="start_time" type="string" />
+		<property name="end_time" column="end_time" type="string" />
+		<property name="max_price" column="max_price" type="double" />
+		<property name="min_price" column="min_price" type="double" />
+	</class>
+
+	<class name="RaffleCampaign" table="RAFFLECAMPAIGN">
+		<meta attribute="class-description">This class contains the Raffle campaign details</meta>
+		<id name="campaign_id" type="int" column="campaign_id">
+			<generator class="native" />
+		</id>
+		<property name="campaign_name" column="campaign_name" type="string" />
+		<property name="organizer_name" column="organizer_name" type="string" />
+		<property name="contact_email" column="contact_email" type="string" />
+		<property name="raffle_count" column="raffle_count" type="int" />
+	</class>
+</hibernate-mapping>
