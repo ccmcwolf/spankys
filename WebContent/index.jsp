@@ -53,93 +53,79 @@
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 <script type="text/javascript">
-	$(document)
-			.ready(
-					function() {
-						$('.btn-demo')
-								.on(
-										'click',
-										function() {
-											var html = '   <div class="form-row">'
-													+ '       <input type="text" name="username" ' +
-                '       placeholder="Username" />'
-													+ '   </div>'
-													+ '   <div class="form-row">'
-													+ '       <input type="password" name="password" ' +
-                '       placeholder="Password" />'
-													+ '   </div>'
-													+ '   <div class="form-row">'
-													+ '       <input type="password" name="verypassword" ' +
-                '       placeholder="Verify Password" />'
-													+ '   </div>'
-													+ '   <div class="form-row">'
-													+ '       <input type="checkbox" name="agree" ' +
-                '       id="check"/>'
-													+ '       <label for="check">I confirm I am above 18 years and agree to policies of SpankysRaffle.com</label>'
-													+ '   </div>';
+	$(document).ready(function() {
+    	$('.btn-demo').on('click', function() {
+			var html = '   <div class="form-row">'
+					 + '   <input type="text" name="username" ' +
+                       '   placeholder="Username" />'
+					 + '   </div>'
+					 + '   <div class="form-row">'
+					 + '   <input type="password" name="password" ' +
+                       '   placeholder="Password" />'
+					 + '   </div>'
+					 + '   <div class="form-row">'
+					 + '   <input type="password" name="verypassword" ' +
+                       '   placeholder="Verify Password" />'
+					 + '   </div>'
+					 + '   <div class="form-row">'
+					 + '   <input type="checkbox" name="agree" ' +
+                       '   id="check"/>'
+					 + '   <label for="check">I confirm I am above 18 years and agree to policies of SpankysRaffle.com</label>'
+					 + '   </div>';
 
-											new $.flavr({
+			new $.flavr({
+				iconPath : 'img/icons/',
+				icon : 'email.png',
+					  content : 'Sign Up',
+				dialog : 'form',
+									
+		        form : {
+					content : html,
+					method : 'get'
+				},
+				onSubmit : function($container,$form) {;
+					return $form.serialize();
+				}
+			});
+		});
+    	
+    	
+		$('.btn-demo-d').on('click', function() {
+				var html = '   <div class="form-row">'
+						 + '   <input type="text" name="username" ' +
+                           '   placeholder="Username" />'
+						 + '   </div>'
+						 + '   <div class="form-row">'
+					     + '   <input type="password" name="password" ' +
+                           '   placeholder="Password" />'
+						 + '   </div>'
+					     + '   <div class="form-row">'
+						 + '   <input type="checkbox" name="remember" ' +
+                           '   id="check"/>'
+						 + '   <label for="check">Remember me</label>'
+						 + '   </div>';
 
-												iconPath : 'img/icons/',
-												icon : 'email.png',
-												content : 'Sign Up',
-												dialog : 'form',
-												form : {
-													content : html,
-													method : 'get'
-												},
-												onSubmit : function($container,
-														$form) {
-													;
-													return $form.serialize();
-												}
-											});
-										});
-						$('.btn-demo-d')
-								.on(
-										'click',
-										function() {
-											var html = '   <div class="form-row">'
-													+ '       <input type="text" name="username" ' +
-                '       placeholder="Username" />'
-													+ '   </div>'
-													+ '   <div class="form-row">'
-													+ '       <input type="password" name="password" ' +
-                '       placeholder="Password" />'
-													+ '   </div>'
-													+ '   <div class="form-row">'
-													+ '       <input type="checkbox" name="remember" ' +
-                '       id="check"/>'
-													+ '       <label for="check">Remember me</label>'
-													+ '   </div>';
-
-											new $.flavr(
-													{
-
-														iconPath : 'img/icons/',
-														icon : 'email.png',
-														content : 'Login',
-														dialog : 'form',
-														form : {
-															content : html,
-															method : 'post',
-															action : 'LoginAuthenticator'
-														},
-														onSubmit : function(
-																$container,
-																$form) {
-															;
-															return $form
-																	.serialize();
-														}
-													});
-										});
-
-					});
+				new $.flavr({
+					iconPath : 'img/icons/',
+					icon : 'email.png',
+					content : 'Login',
+					dialog : 'form',
+								
+					form : {
+						content : html,
+						method : 'post',
+						action : 'LoginAuthenticator'
+					},
+					onSubmit : function($container, $form) {;
+						return $form.serialize();
+					}
+			    });
+		 });
+	});
 </script>
 </head>
 
-<body id="page-top" class="index">
+<body id="page-top" class="index"  >
 
 	<!-- Navigation -->
 	<nav class="navbar navbar-inverse navbar " role="navigation">
@@ -183,7 +169,18 @@
 						user = (String) session.getAttribute("user");
 						isLogged = true;
 				%>
-				<li><a href="LogoutServlet"><%=user%>Logout</a></li>
+				
+				<li class="dropdown">
+					<a class="dropdown-toggle" data-toggle="dropdown" href="#">Welcome ! <%=user%>
+					<span class="caret"></span></a>
+					
+					<ul class="dropdown-menu">
+						<li><a href="LogoutServlet">Logout</a></li>
+						<li><a href="">My raffles</a></li>
+						<li><a href="">Profile</a></li>
+						<li><a href="">Availability</a></li>
+					</ul>
+				</li>
 				<%
 					}
 
@@ -248,7 +245,7 @@
 				<%
 					} else {
 				%>
-				<a href="raffles.jsp"> <img src="img/portfolio/tickets.png"
+				<a class="raf" href="raffles.jsp"> <img src="img/portfolio/tickets.png"
 					class="img-responsive" alt="">
 				</a>
 				<%
