@@ -3,7 +3,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 
-
 <head>
 
 <meta charset="utf-8">
@@ -33,7 +32,6 @@
 <!-- Custom CSS -->
 <link href="css/logo-nav.css" rel="stylesheet">
 
-
 <!-- Custom Fonts -->
 <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet"
 	type="text/css">
@@ -50,46 +48,153 @@
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 <script type="text/javascript">
-	$(document).ready(function() {
-    	   	
-    	
-		$('.btn-demo-d').on('click', function() {
-				var html = '   <div class="form-row">'
-						 + '   <input type="text" name="username" ' +
-                           '   placeholder="Username" />'
-						 + '   </div>'
-						 + '   <div class="form-row">'
-					     + '   <input type="password" name="password" ' +
-                           '   placeholder="Password" />'
-						 + '   </div>'
-					     + '   <div class="form-row">'
-						 + '   <input type="checkbox" name="remember" ' +
-                           '   id="check"/>'
-						 + '   <label for="check">Remember me</label>'
-						 + '   </div>';
+	$(document)
+			.ready(
+					function() {
+						$('.btn-demo')
+								.on(
+										'click',
+										function() {
+											var html = '   <div class="form-row">'
+													+ '   <input type="text" name="username" ' +
+                       '   placeholder="Username" />'
+													+ '   </div>'
+													+ '   <div class="form-row">'
+													+ '   <input type="password" name="password" ' +
+                       '   placeholder="Password" />'
+													+ '   </div>'
+													+ '   <div class="form-row">'
+													+ '   <input type="password" name="verypassword" ' +
+                       '   placeholder="Verify Password" />'
+													+ '   </div>'
+													+ '   <div class="form-row">'
+													+ '   <input type="checkbox" name="agree" ' +
+                       '   id="check"/>'
+													+ '   <label for="check">I confirm I am above 18 years and agree to policies of SpankysRaffle.com</label>'
+													+ '   </div>';
 
-				new $.flavr({
-					iconPath : 'img/icons/',
-					icon : 'email.png',
-					content : 'Login',
-					dialog : 'form',
-								
-					form : {
-						content : html,
-						method : 'post',
-						action : 'LoginAuthenticator'
-					},
-					onSubmit : function($container, $form) {;
-						return $form.serialize();
-					}
-			    });
-		 });
-	});
+											new $.flavr({
+												iconPath : 'img/icons/',
+												icon : 'email.png',
+												content : 'Sign Up',
+												dialog : 'form',
+
+												form : {
+													content : html,
+													method : 'get'
+												},
+												onSubmit : function($container,
+														$form) {
+													;
+													return $form.serialize();
+												}
+											});
+										});
+
+						$('.btn-demo-dd')
+								.on(
+										'click',
+										function() {
+											var html = '   <div class="form-row">'
+													+ '   <input type="text" name="username" ' +
+                           '   placeholder="Username" />'
+													+ '   </div>'
+													+ '   <div class="form-row">'
+													+ '   <input type="password" name="password" ' +
+                           '   placeholder="Password" />'
+													+ '   </div>'
+													+ '   <div class="form-row">'
+													+ '   <input type="checkbox" name="remember" ' +
+                           '   id="check"/>'
+													+ '   <label for="check">Remember me</label>'
+													+ '   </div>';
+
+											new $.flavr(
+													{
+														iconPath : 'img/icons/',
+														icon : 'email.png',
+														content : 'Login',
+														dialog : 'form',
+
+														form : {
+															content : html,
+															method : 'post',
+															action : 'LoginAuthenticator'
+														},
+														onSubmit : function(
+																$container,
+																$form) {
+															;
+															return $form
+																	.serialize();
+														}
+													});
+										});
+					});
 </script>
+
+<!-- 
+<script type="text/javascript">
+$(document).ready(function() {
+			 	new $.flavr({
+			 		position    : 'top-mid',
+			 		content     : 'Welcome ! you\' successfully logged-in<br>Where to next?',
+			 		buttons     : {
+			 			primary : { 
+			 				text   : 'Primary',
+			 				style  : 'primary',
+			 				action : function() {
+			 							$('.raf').click();
+			 							return false;
+			 			    }
+			 			},
+			 			
+			 			success    : { 
+			 				text   : 'Success',
+			 				style  : 'success',
+			 				action : function() {
+			 							alert('sususususs');
+			 							return false;
+			 			    }
+			 			},
+			 			
+			 			close      : {
+			 				style  : 'default'
+			 			}
+			 		}
+			 	});
+			 	
+			 	
+				$('.btn-demo-d').on('click', function() {
+					var html = '   <div class="form-row">'
+							 + '   		<a class="btn btn-default" href="raffles.jsp">Raffle</a>' +
+							 + '   </div>'
+							 + '   <div class="form-row">'
+							 + '   		<a class="btn btn-default" href="raffles.jsp">Next</a>' +
+							 + '   </div>'
+
+					new $.flavr({
+						content : 'Welcome ! you\' successfully logged-in<br>Where to next?',
+						
+									
+						form : {
+							position    : 'top-mid',
+							content : html
+						}
+				    });
+			 });
+	 		
+	});
+</script> -->
+
+<script type="text/javascript"></script>
 </head>
 
-<body id="page-top" class="index"  >
+<body id="page-top" class="index">
 
+
+
+	</div>
 	<!-- Navigation -->
 	<nav class="navbar navbar-inverse navbar " role="navigation">
 	<div class="container">
@@ -121,38 +226,19 @@
 				<li class="page-scroll"><a href="#contact">Contact</a></li>
 				<%
 					String user = null;
-					String user_type = null;
 					boolean isLogged = false;
 					if (session.getAttribute("user") == null) {
 						isLogged = false;
 				%>
 				<li class="btn-demo-d"><a href="#login">Login</a></li>
-				<li class="btn-demo"><a href="signup.jsp">SignUp</a></li>
+				<li class="btn-demo"><a href="#signup">SignUp</a></li>
 				<%
 					} else {
 						user = (String) session.getAttribute("user");
-						user_type = (String) session.getAttribute("userType");
 						isLogged = true;
 				%>
-				
-				<li class="dropdown">
-					<a class="dropdown-toggle" data-toggle="dropdown" href="#">Welcome ! <%=user%>
-					<span class="caret"></span></a>
-					
-					<ul class="dropdown-menu">
-						<li><a href="LogoutServlet">Logout</a></li>
-						<li><a href="raffles.jsp">My raffles</a></li>
-						<li><a href="">Profile</a></li>
-						<li><a href="">Availability</a></li>
-						<%
-							if (user_type.equals("ADMIN")) {
-						%>
-						<li><a href="rafflemngt.jsp">Visit admin page</a></li>
-						<%
-							}
-						%>
-					</ul>
-				</li>
+				<li><a href="LogoutServlet"><%=user%>Logout</a></li>
+				<li class="show-demo-d"></li>
 				<%
 					}
 
@@ -217,8 +303,8 @@
 				<%
 					} else {
 				%>
-				<a class="raf" href="raffles.jsp"> <img src="img/portfolio/tickets.png"
-					class="img-responsive" alt="">
+				<a class="raf" href="raffles.jsp"> <img
+					src="img/portfolio/tickets.png" class="img-responsive" alt="">
 				</a>
 				<%
 					}
@@ -236,8 +322,8 @@
 					} else {
 				%>
 				<!-- if logged then what's going on winner -->
-				<a href="" class=""> <img
-					src="img/portfolio/winner.png" class="img-responsive" alt="">
+				<a href="" class=""> <img src="img/portfolio/winner.png"
+					class="img-responsive" alt="">
 				</a>
 				<%
 					}
@@ -248,14 +334,14 @@
 				<%
 					if (!isLogged) {
 				%>
-				<a href="#login" class="btn-demo-d" > <img src="img/portfolio/blog.png"
-					class="img-responsive" alt="">
+				<a href="#login" class="btn-demo-d"> <img
+					src="img/portfolio/blog.png" class="img-responsive" alt="">
 				</a>
 				<%
 					} else {
 				%>
 				<!-- if logged then what's going on winner -->
-				<a href="" class="" > <img src="img/portfolio/blog.png"
+				<a href="" class=""> <img src="img/portfolio/blog.png"
 					class="img-responsive" alt="">
 				</a>
 				<%
@@ -411,6 +497,7 @@
 		</a>
 	</div>
 
+
 	<!-- Plugin JavaScript -->
 	<script
 		src="http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
@@ -423,6 +510,8 @@
 
 	<!-- Custom Theme JavaScript -->
 	<script src="js/freelancer.js"></script>
+
+
 
 </body>
 
