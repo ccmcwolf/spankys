@@ -50,163 +50,47 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+
+
 <script type="text/javascript">
-	$(document)
-			.ready(
-					function() {
-						$('.btn-demo')
-								.on(
-										'click',
-										function() {
-											var html = '   <div class="form-row">'
-													+ '       <input type="text" name="username" ' +
-                '       placeholder="Username" />'
-													+ '   </div>'
-													+ '   <div class="form-row">'
-													+ '       <input type="password" name="password" ' +
-                '       placeholder="Password" />'
-													+ '   </div>'
-													+ '   <div class="form-row">'
-													+ '       <input type="password" name="verypassword" ' +
-                '       placeholder="Verify Password" />'
-													+ '   </div>'
-													+ '   <div class="form-row">'
-													+ '       <input type="checkbox" name="agree" ' +
-                '       id="check"/>'
-													+ '       <label for="check">I confirm I am above 18 years and agree to policies of SpankysRaffle.com</label>'
-													+ '   </div>';
-
-											new $.flavr({
-
-												iconPath : 'img/icons/',
-												icon : 'email.png',
-												content : 'Sign Up',
-												dialog : 'form',
-												form : {
-													content : html,
-													method : 'get'
-												},
-												onSubmit : function($container,
-														$form) {
-													;
-													return $form.serialize();
-												}
-											});
-										});
-						$('.btn-demo-d')
-								.on(
-										'click',
-										function() {
-											var html = '   <div class="form-row">'
-													+ '       <input type="text" name="username" ' +
-                '       placeholder="Username" />'
-													+ '   </div>'
-													+ '   <div class="form-row">'
-													+ '       <input type="password" name="password" ' +
-                '       placeholder="Password" />'
-													+ '   </div>'
-													+ '   <div class="form-row">'
-													+ '       <input type="checkbox" name="remember" ' +
-                '       id="check"/>'
-													+ '       <label for="check">Remember me</label>'
-													+ '   </div>';
-
-											new $.flavr(
-													{
-
-														iconPath : 'img/icons/',
-														icon : 'email.png',
-														content : 'Login',
-														dialog : 'form',
-														form : {
-															content : html,
-															method : 'post',
-															action : 'LoginAuthenticator'
-														},
-														onSubmit : function(
-																$container,
-																$form) {
-															;
-															return $form
-																	.serialize();
-														}
-													});
-										});
-
-					});
+	$(document).ready(function () {
+		$.ajax({
+			type:"GET",
+			url:"DisplayRaffles",
+			dataType:"json",
+			success: function (data) {
+				if (data.ExistingRaffleData.length) {
+					$.each(data.ExistingRaffleData, function(i,data) {
+						var min_price = data.min_price;
+						var id =data.campaign_id;
+						var raf_data = "<div class='col-lg-3'><a href='ReserveRaffleServlet?value="+min_price+"&id="+id+"' style='color: black; text-decoration:none;'><div style='background-color:#999; font-size:14px; font-family: Arial; text-align:center; padding:20px 20px 20px 20px;margin:10px 10px 10px 10px; cursor:pointer; height:200px; width:100%;' id='datas"+data.raffle_no+"'><b>"+data.organizer_name+"</b><br />Raffle value :<b>"+data.min_price+"</b>&nbsp;$<br>Total raffles left : <b>"+data.raffle_count+"</b><br><i class='fa fa-5x fa-bitcoin'></i></div></a></div";
+						$(raf_data).appendTo("#port-folio");
+					});					
+				} else {
+					$(raf_data).html("No Results");
+				}
+			}
+		});
+	});
 </script>
 </head>
 <body id="page-top" class="index">
 
-	<!-- Navigation -->
-	<nav class="navbar navbar-inverse navbar " role="navigation">
-	<div class="container">
-		<!-- Brand and toggle get grouped for better mobile display -->
-		<div class="navbar-header">
-			<a class="navbar-brand" href="#"> <img id="navbarimg"
-				src="img/logonev.png" class="img-responsive" alt="">
-			</a>
-			<!-- Brand and toggle get grouped for better mobile display -->
-			<div class="navbar-header page-scroll">
-				<button type="button" class="navbar-toggle" data-toggle="collapse"
-					data-target="#bs-example-navbar-collapse-1">
-					<span class="sr-only">Toggle navigation</span> <span
-						class="icon-bar"></span> <span class="icon-bar"></span> <span
-						class="icon-bar"></span>
-				</button>
-				<a class="navbar-brand" href="#page-top">Spanky's Raffle</a>
-			</div>
 
+	<%
+		String user = null;
+		String user_type = null;
+		boolean isLogged = false;
+		if (session.getAttribute("user") == null) {
+			isLogged = false;
+		} else {
+			user = (String) session.getAttribute("user");
+			user_type = (String) session.getAttribute("userType");
+			isLogged = true;
+		}
+	%>
 
-		</div>
-		<!-- Collect the nav links, forms, and other content for toggling -->
-		<div class="collapse navbar-collapse"
-			id="bs-example-navbar-collapse-1">
-			<ul class="nav navbar-nav navbar-right">
-				<li class="hidden"><a href="#page-top"></a></li>
-				<li class="page-scroll"><a href="#home">Home</a></li>
-				<li class="page-scroll"><a href="#about">About</a></li>
-				<li class="page-scroll"><a href="#contact">Contact</a></li>
-				<%
-					String user = null;
-					boolean isLogged = false;
-					if (session.getAttribute("user") == null) {
-						isLogged = false;
-				%>
-				<li class="btn-demo-d"><a href="#login">Login</a></li>
-				<li class="btn-demo"><a href="#signup">SignUp</a></li>
-				<%
-					} else {
-						user = (String) session.getAttribute("user");
-						isLogged = true;
-				%>
-				<li><a href="LogoutServlet"><%=user%>Logout</a></li>
-				<%
-					}
-
-					String user_name = null;
-					String session_id = null;
-					Cookie[] cookies = request.getCookies();
-
-					if (cookies != null) {
-						for (Cookie cookie : cookies) {
-							if (cookie.getName().equals("user")) {
-								user_name = cookie.getValue();
-								/*
-								
-								*/
-							}
-						}
-					}
-				%>
-
-
-
-			</ul>
-		</div>
-		<!-- /.navbar-collapse -->
-	</div>
-	<!-- /.container --> </nav>
+	<jsp:include page="header.jsp"></jsp:include>
 
 	<!-- Header -->
 	<header>
@@ -221,128 +105,7 @@
 	<!-- Portfolio Grid Section -->
 	<section id="home">
 	<div class="container">
-		<div class="row"></div>
-		<div class="row">
-			<div class="col-sm-4 portfolio-item">
-				<%
-					if (!isLogged) {
-				%>
-				<a class="btn-demo-d" href="#login"> <img
-					src="img/portfolio/5dlr.png" class="img-responsive" alt="">
-					<h5>$5</h5>
-				</a>
-				<%
-					} else {
-				%>
-				<a href="orders.jsp?value=5"> <img src="img/portfolio/5dlr.png"
-					class="img-responsive" alt="">
-					<h5>$5</h5>
-				</a>
-				<%
-					}
-				%>
-
-			</div>
-			
-			<div class="col-sm-4 portfolio-item">
-				<%
-					if (!isLogged) {
-				%>
-				<a class="btn-demo-d" href="#login"> <img
-					src="img/portfolio/10dlr.png" class="img-responsive" alt="">
-					<h5>$10</h5>
-				</a>
-				<%
-					} else {
-				%>
-				<a href="orders.jsp?value=10"> <img
-					src="img/portfolio/10dlr.png" class="img-responsive" alt="">
-					<h5>$10</h5>
-				</a>
-				<%
-					}
-				%>
-			</div>
-			
-			<div class="col-sm-4 portfolio-item">
-				<%
-					if (!isLogged) {
-				%>
-				<a class="btn-demo-d" href="#login"> <img
-					src="img/portfolio/20dlr.png" class="img-responsive" alt="">
-					<h5>$20</h5>
-				</a>
-				<%
-					} else {
-				%>
-				<a href="orders.jsp?value=20"> <img
-					src="img/portfolio/20dlr.png" class="img-responsive" alt="">
-					<h5>$20</h5>
-				</a>
-				<%
-					}
-				%>
-			</div>
-			
-			<div class="col-sm-4 portfolio-item">
-				<%
-					if (!isLogged) {
-				%>
-				<a class="btn-demo-d" href="#login"> <img
-					src="img/portfolio/30dlr.png" class="img-responsive" alt="">
-					<h5>$30</h5>
-				</a>
-				<%
-					} else {
-				%>
-				<a href="orders.jsp?value=50"> <img
-					src="img/portfolio/30dlr.png" class="img-responsive" alt="">
-					<h5>$30</h5>
-				</a>
-				<%
-					}
-				%>
-			</div>
-			
-			<div class="col-sm-4 portfolio-item">
-				<%
-					if (!isLogged) {
-				%>
-				<a class="btn-demo-d" href="#login"> <img
-					src="img/portfolio/50dlr.png" class="img-responsive" alt="">
-					<h5>$50</h5>
-				</a>
-				<%
-					} else {
-				%>
-				<a href="orders.jsp?value=50"> <img
-					src="img/portfolio/50dlr.png" class="img-responsive" alt="">
-					<h5>$50</h5>
-				</a>
-				<%
-					}
-				%>
-			</div>
-			
-			<div class="col-sm-4 portfolio-item">
-				<%
-					if (!isLogged) {
-				%>
-				<a class="btn-demo-d" href="#login"> <img
-					src="img/portfolio/50dlr.png" class="img-responsive" alt="">
-					<h5>$80</h5>
-				</a>
-				<%
-					} else {
-				%>
-				<a href="orders.jsp?value=80"> <img
-					src="img/portfolio/80dlr.png" class="img-responsive" alt="">
-					<h5>$80</h5>
-				</a>
-				<%
-					}
-				%>
-			</div>
+		<div class="row" id="port-folio">
 			
 		</div>
 	</div>
